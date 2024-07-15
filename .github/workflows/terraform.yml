@@ -1,0 +1,35 @@
+name: terraform ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-terraform:
+    name: "Run Terraform"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Run terraform init
+        run: terraform init
+
+      - name: Run terraform fmt
+        run: terrafrom fmt -check --diff
+
+      - name: Execute terraform linter
+        uses: terraform-linters/setup-tflint@v1
+
+      - name: Execute checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          soft_fail: true
+
+      - name: Run terraform plan
+        run: terraform plan
