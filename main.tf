@@ -115,3 +115,13 @@ resource "azurerm_linux_virtual_machine" "my_vm" {
   disable_password_authentication = false
 }
 
+# Generate Ansible Inventory
+
+resource "local_file" "inventory" {
+  content = templatefile("inventory.tpl", {
+    web_ip       = azurerm_public_ip.vm_public_ip.ip_address,
+    web_user     = var.vm_username,
+    web_password = var.vm_password
+  })
+  filename = "./ansible/inventory.ini"
+}
