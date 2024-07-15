@@ -21,7 +21,7 @@ jobs:
         run: terraform init
 
       - name: Run terraform fmt
-        run: terrafrom fmt -check --diff
+        run: terraform fmt -check --diff
 
       - name: Execute terraform linter
         uses: terraform-linters/setup-tflint@v1
