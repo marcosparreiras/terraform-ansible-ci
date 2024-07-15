@@ -39,3 +39,16 @@ jobs:
           az_tenant_id: ${{ secrets.ARM_TENANT_ID}}
           az_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID}}
           vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
+
+      # CONFIGURAR AZURE BACKEND ANTES DISSO
+      # - name: Run terraform apply
+      #   run: terraform apply -auto-approve
+      #   env:
+      #     az_client_id: ${{ secrets.ARM_CLIENT_ID}}
+      #     az_client_secret: ${{ secrets.ARM_CLIENT_SECRET}}
+      #     az_tenant_id: ${{ secrets.ARM_TENANT_ID}}
+      #     az_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID}}
+      #     vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
+
+      # - name: Install ansible
+      # - name: Execute ansible playbook
