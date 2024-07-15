@@ -33,3 +33,9 @@ jobs:
 
       - name: Run terraform plan
         run: terraform plan
+        env:
+          az_client_id: ${{ secrets.ARM_CLIENT_ID}}
+          az_client_secret: ${{ secrets.ARM_CLIENT_SECRET}}
+          az_tenant_id: ${{ secrets.ARM_TENANT_ID}}
+          az_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID}}
+          vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
