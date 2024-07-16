@@ -1,8 +1,9 @@
 # Azure credentials
-# az_client_id=
-# az_client_secret=
-# az_tenant_id=
-# az_subscription_id=
+az_client_id=
+az_client_secret=
+az_tenant_id=
+az_subscription_id=
 
-# Password for VM USER
-# vm_password=
+# Password for VM user
+vm_password=
+

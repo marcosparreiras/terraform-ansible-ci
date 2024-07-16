@@ -40,3 +40,4 @@ variable "vm_password" {
   type        = string
   description = "vm password"
 }
+
