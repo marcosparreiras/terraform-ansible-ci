@@ -17,6 +17,9 @@ jobs:
       - name: Install terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Install ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible sshpass
+
       - name: Run terraform init
         run: terraform init
         env:
@@ -54,9 +57,6 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID}}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID}}
           TF_VAR_vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
-
-      - name: Install ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
 
       - name: Execute ansible playbook
         run: ansible-playbook -i ./ansible/inventory.ini ./ansible/playbook.yml
