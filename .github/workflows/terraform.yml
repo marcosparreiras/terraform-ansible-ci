@@ -58,7 +58,18 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID}}
           TF_VAR_vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
 
+      - name: Check if nginx is installed
+        id: check-nginx-installed
+        run: |
+          if command -v nginx &> /dev/null; then
+            echo "Nginx is installed"
+          else
+            echo "Nginx is not installed"
+            echo "::set-output name=nginx_installed::false"
+          fi
+
       - name: Execute ansible playbook
+        if: steps.check-nginx-installed.outputs.nginx_installed != 'false'
         run: ansible-playbook -i ./ansible/inventory.ini ./ansible/playbook.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: false

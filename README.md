@@ -36,19 +36,21 @@ Antes de começar, certifique-se de ter instalado:
 
 1. Renomeie o arquivo `terraform.tfvars.sample` para `terraform.tfvars` e preencha os dados necessários.
 
-2. Inicialize o diretório do Terraform:
+2. No arquivo `providers.tf` modifique as configurações `backend azurerm` para um backend válido.
+
+3. Inicialize o diretório do Terraform
 
 ```bash
 terraform init
 ```
 
-3. Gere e revise o plano de execução:
+4. Gere e revise o plano de execução:
 
 ```bash
 terraform plan -out plan.tfplan
 ```
 
-4. Aplique o plano de execução para provisionar a infraestrutura:
+5. Aplique o plano de execução para provisionar a infraestrutura:
 
 ```bash
 terraform apply plan.tfplan
