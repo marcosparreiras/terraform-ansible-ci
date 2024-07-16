@@ -18,7 +18,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Install ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible sshpass jq
+        run: sudo apt-get update && sudo apt-get install -y ansible sshpass
 
       - name: Run terraform init
         run: terraform init
@@ -50,7 +50,7 @@ jobs:
           TF_VAR_vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
 
       - name: Run terraform apply
-        run: terraform apply -auto-approve -json > tf_output.json
+        run: terraform apply -auto-approve
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID}}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET}}
@@ -58,15 +58,7 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID}}
           TF_VAR_vm_password: ${{ secrets.TF_VAR_vm_admin_password }}
 
-      - name: Parse Terraform output
-        id: parse_output
-        run: echo "::set-output name=public_ip::$(jq -r '.values.outputs.public_ip_address.value' < tf_output.json)"
-
-      - name: Add ssh directory
-        run: mkdir -p ~/.ssh/ && touch ~/.ssh/known_hosts
-
-      - name: Add remote host to known_hosts
-        run: ssh-keyscan -H ${{ steps.parse_output.outputs.public_ip }} >> ~/.ssh/known_hosts
-
       - name: Execute ansible playbook
         run: ansible-playbook -i ./ansible/inventory.ini ./ansible/playbook.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
